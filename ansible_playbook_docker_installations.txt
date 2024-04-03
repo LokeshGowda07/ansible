@@ -1,0 +1,70 @@
+---
+- name: docker operation
+
+  hosts: demo
+
+  user: ansible
+
+  become: yes
+
+  connection: ssh
+
+  tasks:
+
+- name: check wheather docker is present or not
+
+  command: yum search docker
+
+- name: install docker
+
+  command: yum install -y docker
+
+- name: check docker version
+
+  command: docker-version
+
+- name: pull nginix image
+
+  command: docker pull nginx
+
+- name: run the container
+
+  command: docker run it -d nginx
+
+-----------------------------------------------------------------------------------------------------------------
+---
+- name: docker operation
+
+ hosts: demo
+
+ user: ansible
+
+ become: yes
+
+ connection: ssh
+
+ tasks:
+
+-name: dockernlogin
+
+ command: docker login -u lokeshgowda07 -p *********
+
+ environment:
+
+  DOCKER_CLI_DISABLE_CONTENT_TRUST: "true"
+
+- name: tag docker image
+
+ command: docker tag nginx Lokesh/playbook:latest
+
+environment:
+
+DOCKER_CLI_DISABLE_CONTENT_TRUST: "true"
+
+- name: push docker images
+
+command: docker push lokeshgowda07/playbook:latest
+
+environment:
+
+DOCKER_CLI_DISABLE_CONTENT_TRUST: "true"
